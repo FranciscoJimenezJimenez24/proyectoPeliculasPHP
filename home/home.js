@@ -22,7 +22,7 @@ function sendTipeVideo(tipo_video) {
                 alert(data.error); 
             } else {
                 localStorage.setItem("videos", JSON.stringify(data));
-                window.location.href = "../video/video.html";
+                window.location.href = "../video/video.view.php";
             }
         })
         .catch(error => console.error('Error:', error));

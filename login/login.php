@@ -3,7 +3,7 @@ session_start();
 $user = $_POST['user'];
 $pass = $_POST['password'];
 
-$conection = mysqli_connect("localhost", "root", "root", "proyectoPeliculas");
+$conection = mysqli_connect("db", "root", "root", "dbname");
 
 if (!$conection) {
     die("Connection failed: " . mysqli_connect_error());
@@ -14,7 +14,7 @@ if (!$conection) {
     $sql = "SELECT * FROM usuarios WHERE usuario = '$user' AND password = '$pass'";
     $result = $conection->query($sql);
     if ($result->num_rows > 0) {
-        header('Location: ../home/home.html');
+        header('Location: ../home/home.view.php');
         exit();  
     } else {
         $sqlUser = "SELECT * FROM usuarios WHERE usuario = '$user'";
