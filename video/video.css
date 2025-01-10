@@ -32,11 +32,10 @@ tr:hover {
 
 .table-container {
     display: flex;
-    align-items: flex-start; 
+    align-items: flex-start;
     justify-content: flex-start;
     gap: 20px;
 }
-
 
 #back {
     position: fixed;
