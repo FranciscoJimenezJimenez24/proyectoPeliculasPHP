@@ -1,0 +1,12 @@
+.bg-cover {
+    background-image: url('https://source.unsplash.com/1600x900/?cinema'); 
+    background-size: cover;
+    background-position: center;
+    color: white;
+}
+.option-card {
+    transition: transform 0.3s;
+}
+.option-card:hover {
+    transform: scale(1.05);
+}

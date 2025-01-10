@@ -4,7 +4,7 @@ $user = $_POST['user'];
 $pass = $_POST['password'];
 $rpass = $_POST['rpassword'];
 
-$conection = mysqli_connect("db", "root", "test", "dbname");
+$conection = mysqli_connect("localhost", "root", "root", "proyectoPeliculas");
 
 if (!$conection) {
     die("Connection failed: " . mysqli_connect_error());
@@ -17,7 +17,7 @@ if (!$conection) {
         $user = $conection->real_escape_string($user);
         $pass = $conection->real_escape_string($pass);
 
-        $sql = "SELECT * FROM users WHERE user = '$user' AND password = '$pass'";
+        $sql = "SELECT * FROM usuarios WHERE usuario = '$user' AND password = '$pass'";
         $result = $conection->query($sql);
 
         if ($result->num_rows > 0) {
@@ -25,7 +25,7 @@ if (!$conection) {
             header('Location: ../login/login.view.php');
             exit();
         } else {
-            $sqlCreate = "INSERT INTO users (user, password) VALUES ('$user', '$pass')";
+            $sqlCreate = "INSERT INTO usuarios (usuario, password) VALUES ('$user', '$pass')";
             if ($conection->query($sqlCreate) === TRUE) {
                 $_SESSION['alert'] = 'Registro exitoso';
                 header('Location: ../login/login.view.php');

@@ -3,7 +3,7 @@ session_start();
 $user = $_POST['user'];
 $pass = $_POST['password'];
 
-$conection = mysqli_connect("db", "root", "test", "dbname");
+$conection = mysqli_connect("localhost", "root", "root", "proyectoPeliculas");
 
 if (!$conection) {
     die("Connection failed: " . mysqli_connect_error());
@@ -11,13 +11,13 @@ if (!$conection) {
     // Escapar las variables para evitar inyección SQL
     $user = $conection->real_escape_string($user);
     $pass = $conection->real_escape_string($pass);
-    $sql = "SELECT * FROM users WHERE user = '$user' AND password = '$pass'";
+    $sql = "SELECT * FROM usuarios WHERE usuario = '$user' AND password = '$pass'";
     $result = $conection->query($sql);
     if ($result->num_rows > 0) {
         header('Location: ../home/home.html');
         exit();  
     } else {
-        $sqlUser = "SELECT * FROM users WHERE user = '$user'";
+        $sqlUser = "SELECT * FROM usuarios WHERE usuario = '$user'";
         $resultUser = $conection->query($sqlUser);
         if ($resultUser->num_rows > 0) {
             $_SESSION['alert'] = 'Contraseña incorrecta';
