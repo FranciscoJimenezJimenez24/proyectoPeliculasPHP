@@ -1,0 +1,147 @@
+body {
+    background-color: #f8f9fa;
+    font-family: 'Arial', sans-serif;
+}
+
+table {
+    margin: 0 auto;
+    max-width: 90%;
+    padding: 10px;
+}
+
+th {
+    background-color: #007bff;
+    color: white;
+    text-align: center;
+    padding: 10px;
+}
+
+td {
+    text-align: center;
+    vertical-align: middle;
+    padding: 10px;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+tr:hover {
+    background-color: #dcdcdc;
+}
+
+.table-container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+#buttons {
+    display: flex;
+    flex-direction: column;
+    margin-right: 20px;
+    position: fixed;
+}
+
+#back,#add {
+    width: 70px;
+    height: 70px;
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+
+#back:hover,#add:hover {
+    opacity: 0.7;
+}
+
+#overlayEdit,
+#overlayDelete,
+#overlayCreate {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+.ocultoEdit,
+.ocultoDelete,
+.ocultoCreate {
+    display: none;
+}
+
+#interfazEdit,
+#interfazDelete,
+#interfazCreate {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 8px;
+    border: 2px solid #ddd;
+    z-index: 2;
+    width: 100%;
+    max-width: 500px;
+}
+
+.modal-header {
+    background-color: #007bff;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    border-radius: 5px 5px 0 0;
+}
+
+.modal-footer {
+    padding-top: 10px;
+}
+
+button {
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 48%;
+    margin-top: 10px;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+button.btn-success {
+    background-color: #28a745;
+    color: white;
+}
+
+button.btn-danger {
+    background-color: #dc3545;
+    color: white;
+}
+
+button.btn-success:hover {
+    background-color: #218838;
+}
+
+button.btn-danger:hover {
+    background-color: #c82333;
+}
+
+.form-control {
+    margin-bottom: 15px;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+label {
+    font-weight: bold;
+}

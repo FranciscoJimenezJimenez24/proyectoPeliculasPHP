@@ -81,6 +81,17 @@ if (isset($_SESSION['alert'])) {
                 </div>
             </div>
 
+            <div class="col-md-4">
+                <div class="card option-card shadow-lg border-0">
+                    <!-- <img src="https://source.unsplash.com/500x300/?movie" class="card-img-top" alt="Películas"> -->
+                    <div class="card-body">
+                        <h5 class="card-title">Actores</h5>
+                        <p class="card-text">Explora la trayectoria de varios de los mejores actores.</p>
+                        <a href="#" id="actors" class="btn btn-primary">Ver Actores</a>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 

@@ -12,7 +12,7 @@ if (isset($_SESSION['alert'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="video.css">
+    <link rel="stylesheet" href="actor.css">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"
         crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
@@ -30,37 +30,36 @@ if (isset($_SESSION['alert'])) {
                 </svg>
             </a>
             <a id="add">
-                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="#007bff"
-                    class="bi bi-plus-circle" viewBox="0 0 16 16">
-                    <path
-                        d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm0 1a7 7 0 1 1 0 14A7 7 0 0 1 8 1z" />
-                    <path
-                        d="M8.5 4a.5.5 0 0 0-1 0v3H4a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3V4z" />
+                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="#007bff" class="bi bi-plus-circle"
+                    viewBox="0 0 16 16">
+                    <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm0 1a7 7 0 1 1 0 14A7 7 0 0 1 8 1z" />
+                    <path d="M8.5 4a.5.5 0 0 0-1 0v3H4a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3V4z" />
                 </svg>
             </a>
         </div>
-        <table id="tableVideos" class="table table-striped table-bordered table-hover"></table>
+        <table id="tableActores" class="table table-striped table-bordered table-hover"></table>
     </div>
 
 
     <div id="overlayEdit" class="ocultoEdit"></div>
     <div id="interfazEdit" class="ocultoEdit">
         <div class="modal-content">
-            <form action="editVideo.php" method="post">
+            <form action="editActor.php" method="post">
                 <div class="modal-body">
-                    <input type="hidden" id="idVideo" name="idVideo">
+                    <input type="hidden" id="idActor" name="idActor">
                     <div class="form-group">
-                        <label for="titulo">Título</label>
-                        <input type="text" class="form-control" name="titulo" id="titulo" required>
+                        <label for="nombre">Nombre</label>
+                        <input type="text" class="form-control" name="nombre" id="nombre" required>
                     </div>
                     <div class="form-group">
-                        <label for="minuto_duracion">Duración (minutos)</label>
-                        <input type="number" class="form-control" name="minuto_duracion" id="minuto_duracion" required>
+                        <label for="obras">Obras</label>
+                        <div class="obras"></div>
                     </div>
                     <div class="form-group">
-                        <label for="fecha_estreno">Fecha Estreno</label>
-                        <input type="date" class="form-control" name="fecha_estreno" id="fecha_estreno" required>
+                        <input type="text" id="search" onkeyup="buscar()">
+                        <ul id="resultados"></ul>
                     </div>
+
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-success">Guardar</button>
@@ -70,7 +69,7 @@ if (isset($_SESSION['alert'])) {
         </div>
     </div>
 
-    <div id="overlayCreate" class="ocultoCreate"></div>
+    <!-- <div id="overlayCreate" class="ocultoCreate"></div>
     <div id="interfazCreate" class="ocultoCreate">
         <div class="modal-content">
             <form action="createVideo.php" method="post">
@@ -95,24 +94,9 @@ if (isset($_SESSION['alert'])) {
                 </div>
             </form>
         </div>
-    </div>
+    </div> -->
 
-    <div id="overlayDelete" class="ocultoDelete"></div>
-    <div id="interfazDelete" class="ocultoDelete">
-        <div class="modal-content">
-            <form action="deleteVideo.php" method="post">
-                <div class="modal-body"></div>
-                    <input type="hidden" id="idVideoDelete" name="idVideoDelete">
-                    <h3>¿Estás seguro de eliminar este video?</h3>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-success">Sí</button>
-                    <button type="button" class="btn btn-danger" id="cerrarInterfazBtnDelete">No</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <script src="video.js"></script>
+    <script src="actor.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"
         crossorigin="anonymous"></script>

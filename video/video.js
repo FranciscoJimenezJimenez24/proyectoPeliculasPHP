@@ -1,27 +1,27 @@
 const videos = JSON.parse(localStorage.getItem("videos"));
-const tableVideos = document.getElementById("tableVideos");
+const tableActores = document.getElementById("tableVideos");
 
-tableVideos.innerHTML = "";
+tableActores.innerHTML = "";
 
 const tr = document.createElement("tr");
 
-const thTitle = document.createElement("th");
-const thDuration = document.createElement("th");
+const thNombre = document.createElement("th");
+const thObras = document.createElement("th");
 const thFechaEstreno = document.createElement("th");
 const thCRUD = document.createElement("th");
 
-thTitle.textContent = "Titulo";
-thDuration.textContent = "Duración";
+thNombre.textContent = "Titulo";
+thObras.textContent = "Duración";
 thFechaEstreno.textContent = "Fecha Estreno";
 thCRUD.textContent = "Acciones";
 
-tr.appendChild(thTitle);
-tr.appendChild(thDuration);
+tr.appendChild(thNombre);
+tr.appendChild(thObras);
 tr.appendChild(thFechaEstreno);
 tr.appendChild(thCRUD);
 
-tableVideos.appendChild(tr);
-videos.forEach(video => {
+tableActores.appendChild(tr);
+actores.forEach(video => {
     const tr = document.createElement("tr");
 
     const tdTitle = document.createElement("td");
@@ -42,7 +42,7 @@ videos.forEach(video => {
     tr.appendChild(tdFechaEstreno);
     tr.appendChild(tdCRUD);
 
-    tableVideos.appendChild(tr);
+    tableActores.appendChild(tr);
 });
 function getVideo(id, titulo, duracion, fecha_estreno) {
     document.getElementById("idVideo").value = id;
@@ -89,7 +89,6 @@ cerrarInterfazBtnEdit.addEventListener("click", () => {
     overlayEdit.classList.add("ocultoEdit");
 });
 
-// Manejo de la interfaz para eliminar video (usando clases para seleccionar todos los botones de eliminar)
 const buttonsRed = document.querySelectorAll(".buttonRed");
 const interfazDelete = document.getElementById("interfazDelete");
 const overlayDelete = document.getElementById("overlayDelete");

@@ -1,77 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        /* Contenedor principal con display flex */
-        .container {
-            display: flex;
-            align-items: flex-start;
-            /* Alinea los elementos al inicio */
-        }
-
-        /* Contenedor de los botones */
-        .buttons-container {
-            display: flex;
-            flex-direction: column;
-            /* Apila los botones uno encima del otro */
-            margin-right: 20px;
-            /* Espacio entre los botones y la tabla */
-        }
-
-        button {
-            margin-bottom: 10px;
-            /* Espacio entre los botones */
-        }
-
-        table {
-            border: 1px solid black;
-            border-collapse: collapse;
-        }
-
-        th,
-        td {
-            padding: 8px;
-            text-align: center;
-            border: 1px solid black;
-        }
-    </style>
+    <title>Buscador en Array</title>
 </head>
-
 <body>
-    <div class="container">
-        <!-- Contenedor de los botones apilados -->
-        <div class="buttons-container">
-            <button>Hola</button>
-            <button>Adios</button>
-        </div>
-        <!-- Tabla al lado de los botones -->
-        <table>
-            <thead>
-                <tr>
-                    <th>Hola</th>
-                    <th>Mundo</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>2</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>4</td>
-                </tr>
-                <tr>
-                    <td>5</td>
-                    <td>6</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</body>
+    <h1>Buscador de Array en JavaScript</h1>
 
+    <input type="text" id="search" placeholder="Buscar..." onkeyup="buscar()">
+    <ul id="resultados"></ul>
+
+    <script src="script.js"></script>
+</body>
 </html>

@@ -11,6 +11,11 @@ document.getElementById("movies").addEventListener("click", function () {
     sendTipeVideo(1);
 });
 
+document.getElementById("actors").addEventListener("click", function () {
+    sendAllVideos();
+    sendActors();
+});
+
 function sendTipeVideo(tipo_video) {
     fetch("../video/video.php", {
         method: "POST",
@@ -29,4 +34,40 @@ function sendTipeVideo(tipo_video) {
             }
         })
         .catch(error => console.error('Error:', error));
+}
+
+function sendActors(){
+    fetch("../actor/actor.php", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.error) {
+            alert(data.error);
+        } else {
+            localStorage.setItem("actores", JSON.stringify(data));
+            window.location.href = "../actor/actor.view.php";
+        }
+    })
+    .catch(error => console.error('Error:', error));
+}
+function sendAllVideos(){
+    fetch("../video/allvideos.php", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.error) {
+            alert(data.error);
+        } else {
+            localStorage.setItem("allVideos", JSON.stringify(data));
+        }
+    })
+    .catch(error => console.error('Error:', error));
 }
