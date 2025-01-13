@@ -4,7 +4,7 @@ $user = $_POST['user'];
 $pass = $_POST['password'];
 $rpass = $_POST['rpassword'];
 
-$conection = mysqli_connect("db", "root", "root", "dbname");
+$conection = mysqli_connect("localhost", "root", "root", "proyectoPeliculas");
 
 if (!$conection) {
     die("Connection failed: " . mysqli_connect_error());

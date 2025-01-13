@@ -1,10 +1,13 @@
 document.getElementById("documentaries").addEventListener("click", function () {
+    localStorage.setItem("tipo_video", 3);
     sendTipeVideo(3);
 });
 document.getElementById("series").addEventListener("click", function () {
+    localStorage.setItem("tipo_video", 2);
     sendTipeVideo(2);
 });
 document.getElementById("movies").addEventListener("click", function () {
+    localStorage.setItem("tipo_video", 1);
     sendTipeVideo(1);
 });
 

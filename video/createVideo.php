@@ -7,18 +7,18 @@ $conection = mysqli_connect("localhost", "root", "root", "proyectoPeliculas");
 if (!$conection) {
     die("Connection failed: " . mysqli_connect_error());
 }
-
-$id = intval($_POST['idVideo']);
+$tipo_video = $_POST['tipo_video'];
 $titulo = $_POST['titulo'];
 $minuto_duracion = $_POST['minuto_duracion'];
 $fecha_estreno = $_POST['fecha_estreno'];
-$sqlUpdate = "UPDATE video SET titulo = '$titulo', minuto_duracion = $minuto_duracion, fecha_estreno = '$fecha_estreno' WHERE id = $id";
-if ($conection->query($sqlUpdate)) {
-    $_SESSION['alert'] = 'Se editó correctamente el video';
+
+$sql = "INSERT INTO video (titulo, minuto_duracion, fecha_estreno, tipo_video) VALUES ('$titulo', $minuto_duracion, '$fecha_estreno', $tipo_video)"; 
+if ($conection->query($sql)) {
+    $_SESSION['alert'] = 'Se creo correctamente el video';
     header('Location: ../home/home.view.php');
     exit();
 } else {
-    $_SESSION['alert'] = 'Hubo un error al editar el video' . addslashes($conection->error);
+    $_SESSION['alert'] = 'Hubo un error al crear el video' . addslashes($conection->error);
     header('Location: video.view.php');
     exit();
 }

@@ -34,11 +34,16 @@ tr:hover {
     display: flex;
     align-items: flex-start;
     justify-content: flex-start;
-    gap: 20px;
 }
 
-#back {
+#buttons {
+    display: flex;
+    flex-direction: column;
+    margin-right: 20px;
     position: fixed;
+}
+
+#back,#add {
     width: 70px;
     height: 70px;
     background-color: transparent;
@@ -51,20 +56,13 @@ tr:hover {
     transition: opacity 0.3s ease;
 }
 
-#back:hover {
+#back:hover,#add:hover {
     opacity: 0.7;
 }
 
-#buttonRed {
-    color: red;
-}
-
-#buttonGreen {
-    color: green;
-}
-
 #overlayEdit,
-#overlayDelete {
+#overlayDelete,
+#overlayCreate {
     position: fixed;
     top: 0;
     left: 0;
@@ -75,12 +73,14 @@ tr:hover {
 }
 
 .ocultoEdit,
-.ocultoDelete {
+.ocultoDelete,
+.ocultoCreate {
     display: none;
 }
 
 #interfazEdit,
-#interfazDelete {
+#interfazDelete,
+#interfazCreate {
     position: fixed;
     top: 50%;
     left: 50%;

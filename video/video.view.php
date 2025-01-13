@@ -29,7 +29,7 @@ if (isset($_SESSION['alert'])) {
                         d="M11.729 5.055a.5.5 0 0 0-.52.038L8.5 7.028V5.5a.5.5 0 0 0-.79-.407L5 7.028V5.5a.5.5 0 0 0-1 0v5a.5.5 0 0 0 1 0V8.972l2.71 1.935a.5.5 0 0 0 .79-.407V8.972l2.71 1.935A.5.5 0 0 0 12 10.5v-5a.5.5 0 0 0-.271-.445" />
                 </svg>
             </a>
-            <a id="add" href="add.view.php">
+            <a id="add">
                 <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor"
                     class="bi bi-plus-circle" viewBox="0 0 16 16">
                     <path
@@ -47,9 +47,6 @@ if (isset($_SESSION['alert'])) {
     <div id="interfazEdit" class="ocultoEdit">
         <div class="modal-content">
             <form action="editVideo.php" method="post">
-                <!-- <div class="modal-header">
-                    <p class="modal-title">Editar Video</p>
-                </div> -->
                 <div class="modal-body">
                     <input type="hidden" id="idVideo" name="idVideo">
                     <div class="form-group">
@@ -67,13 +64,53 @@ if (isset($_SESSION['alert'])) {
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-success">Guardar</button>
-                    <button type="button" class="btn btn-danger" id="cerrarInterfazBtn">Cancelar</button>
+                    <button type="button" class="btn btn-danger" id="cerrarInterfazBtnEdit">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="overlayCreate" class="ocultoCreate"></div>
+    <div id="interfazCreate" class="ocultoCreate">
+        <div class="modal-content">
+            <form action="createVideo.php" method="post">
+                <div class="modal-body">
+                    <input type="hidden" id="tipo_video" name="tipo_video">
+                    <div class="form-group">
+                        <label for="titulo">Título</label>
+                        <input type="text" class="form-control" name="titulo" id="titulo" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="minuto_duracion">Duración (minutos)</label>
+                        <input type="number" class="form-control" name="minuto_duracion" id="minuto_duracion" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="fecha_estreno">Fecha Estreno</label>
+                        <input type="date" class="form-control" name="fecha_estreno" id="fecha_estreno" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">Guardar</button>
+                    <button type="button" class="btn btn-danger" id="cerrarInterfazBtnCreate">Cancelar</button>
                 </div>
             </form>
         </div>
     </div>
 
     <div id="overlayDelete" class="ocultoDelete"></div>
+    <div id="interfazDelete" class="ocultoDelete">
+        <div class="modal-content">
+            <form action="deleteVideo.php" method="post">
+                <div class="modal-body"></div>
+                    <input type="hidden" id="idVideoDelete" name="idVideoDelete">
+                    <h3>¿Estás seguro de eliminar este video?</h3>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">Sí</button>
+                    <button type="button" class="btn btn-danger" id="cerrarInterfazBtnDelete">No</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
     <script src="video.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
