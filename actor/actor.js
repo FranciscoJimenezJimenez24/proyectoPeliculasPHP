@@ -20,7 +20,7 @@ tr.appendChild(thCRUD);
 
 tableActores.appendChild(tr);
 actores.forEach(actor => {
-    
+
     const tr = document.createElement("tr");
 
     const tdNombre = document.createElement("td");
@@ -30,9 +30,9 @@ actores.forEach(actor => {
     tdNombre.textContent = actor.nombre;
     let obrasActor = actor.videos.split(",");
     const div = document.createElement("div");
-    for (let i = 0;i<obrasActor.length;i++){
+    for (let i = 0; i < obrasActor.length; i++) {
         const video = allVideos.find(video => video.id == obrasActor[i]);
-        div.innerHTML += video.titulo + " (" + (video.fecha_estreno).substring(0,4) + ")" + "<br>";
+        div.innerHTML += video.titulo + " (" + (video.fecha_estreno).substring(0, 4) + ")" + "<br>";
     }
     tdObras.appendChild(div)
     tdCRUD.innerHTML = `
@@ -54,13 +54,13 @@ function getActor(id, nombre, obras) {
     const div = document.getElementsByClassName("obras")[0];
     div.innerHTML = "";  // Limpiar contenido previo
 
-    localStorage.setItem("idActor",id);
-    localStorage.setItem("nombre",nombre);
-    localStorage.setItem("obras",obrasActor)
-    
-    for (let i = 0;i<obrasActor.length;i++){
+    localStorage.setItem("idActor", id);
+    localStorage.setItem("nombre", nombre);
+    localStorage.setItem("obras", obrasActor)
+
+    for (let i = 0; i < obrasActor.length; i++) {
         const video = allVideos.find(video => video.id == obrasActor[i]);
-        div.innerHTML += video.titulo + " (" + (video.fecha_estreno).substring(0,4) + ")" + "<br>";
+        div.innerHTML += video.titulo + " (" + (video.fecha_estreno).substring(0, 4) + ")" + "<br>";
     }
 }
 
@@ -106,8 +106,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Editar
     buttonsGreen.forEach(button => {
         button.addEventListener("click", (event) => {
-            const actorId = event.target.getAttribute('onclick').match(/\d+/)[0]; 
-            const nombre = event.target.getAttribute('onclick').match(/"(.*?)"/g)[0].replace(/"/g, ''); 
+            const actorId = event.target.getAttribute('onclick').match(/\d+/)[0];
+            const nombre = event.target.getAttribute('onclick').match(/"(.*?)"/g)[0].replace(/"/g, '');
             const obras = event.target.getAttribute('onclick').match(/"(.*?)"/g)[1].replace(/"/g, '');
 
             getActor(actorId, nombre, obras);
@@ -119,10 +119,10 @@ document.addEventListener('DOMContentLoaded', () => {
 function buscar() {
     const termino = document.getElementById('search').value.toLowerCase();
     const resultados = document.getElementById('resultados');
-    
+
     // Limpiar resultados previos
     resultados.innerHTML = '';
-    
+
     if (termino) {
         // Filtrar el array por el término de búsqueda
         const coincidencias = allVideos.filter(item => (item.titulo).toLowerCase().includes(termino));
@@ -131,13 +131,15 @@ function buscar() {
         if (coincidencias.length > 0) {
             coincidencias.forEach(item => {
                 const li = document.createElement('li');
-                const button = document.createElement("button");
-                button.innerHTML = item.titulo;
+                li.innerHTML = item.titulo;
+                li.style.cursor = "pointer";
+                li.style.padding = "5px"
+                li.style.backgroundColor = "#f0f0f0";
+                li.style.listStyleType = "none";
                 let obras = localStorage.getItem("obras");
-                obras += ","+item.id;
-                button.type = "button";
-                button.onclick = getActor(localStorage.getItem("idActor"),localStorage.getItem("nombre"),obras);
-                li.appendChild(button)
+                let obrasArray = new Set(obras.split(","));
+                obrasArray.add(item.id);
+                li.onclick = () => getActor(localStorage.getItem("idActor"), localStorage.getItem("nombre"), Array.from(obrasArray).join(","));
                 resultados.appendChild(li);
             });
         } else {

@@ -1,15 +1,83 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Buscador en Array</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buscador con Array</title>
+  <style>
+    #results {
+      margin-top: 10px;
+      list-style-type: none;
+      padding: 0;
+    }
+    #results li {
+      cursor: pointer;
+      padding: 5px;
+      background-color: #f0f0f0;
+      margin: 2px 0;
+    }
+    #results li:hover {
+      background-color: #ddd;
+    }
+  </style>
 </head>
 <body>
-    <h1>Buscador de Array en JavaScript</h1>
 
-    <input type="text" id="search" placeholder="Buscar..." onkeyup="buscar()">
-    <ul id="resultados"></ul>
-    <script src="script.js"></script>
+  <h1>Buscador</h1>
+  <input type="text" id="searchInput" placeholder="Buscar..." oninput="search()">
+  
+  <ul id="results"></ul>
+
+  <h2>Elementos seleccionados:</h2>
+  <ul id="selectedItems"></ul>
+
+  <script>
+    // Array de datos iniciales para la búsqueda
+    const items = ['Manzana', 'Banana', 'Cereza', 'Durazno', 'Uva', 'Pera', 'Melón', 'Mango'];
+
+    // Array para almacenar los elementos seleccionados
+    const selectedItems = [];
+
+    // Función para realizar la búsqueda
+    function search() {
+      const query = document.getElementById('searchInput').value.toLowerCase();
+      const results = items.filter(item => item.toLowerCase().includes(query));
+      displayResults(results);
+    }
+
+    // Función para mostrar los resultados de la búsqueda
+    function displayResults(results) {
+      const resultsList = document.getElementById('results');
+      resultsList.innerHTML = '';
+
+      results.forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = item;
+        li.onclick = () => addToSelected(item);
+        resultsList.appendChild(li);
+      });
+    }
+
+    // Función para agregar un elemento al array de seleccionados
+    function addToSelected(item) {
+      if (!selectedItems.includes(item)) {
+        selectedItems.push(item);
+        displaySelectedItems();
+      }
+    }
+
+    // Función para mostrar los elementos seleccionados
+    function displaySelectedItems() {
+      const selectedList = document.getElementById('selectedItems');
+      selectedList.innerHTML = '';
+
+      selectedItems.forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = item;
+        selectedList.appendChild(li);
+      });
+    }
+  </script>
+
 </body>
 </html>
