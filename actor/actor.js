@@ -20,6 +20,7 @@ tr.appendChild(thCRUD);
 
 tableActores.appendChild(tr);
 actores.forEach(actor => {
+    
     const tr = document.createElement("tr");
 
     const tdNombre = document.createElement("td");
@@ -48,11 +49,15 @@ actores.forEach(actor => {
 function getActor(id, nombre, obras) {
     document.getElementById("idActor").value = id;
     document.getElementById("nombre").value = nombre;
+    let obrasActor = obras.split(",");
 
     const div = document.getElementsByClassName("obras")[0];
     div.innerHTML = "";  // Limpiar contenido previo
 
-    let obrasActor = obras.split(",");
+    localStorage.setItem("idActor",id);
+    localStorage.setItem("nombre",nombre);
+    localStorage.setItem("obras",obrasActor)
+    
     for (let i = 0;i<obrasActor.length;i++){
         const video = allVideos.find(video => video.id == obrasActor[i]);
         div.innerHTML += video.titulo + " (" + (video.fecha_estreno).substring(0,4) + ")" + "<br>";
@@ -105,8 +110,38 @@ document.addEventListener('DOMContentLoaded', () => {
             const nombre = event.target.getAttribute('onclick').match(/"(.*?)"/g)[0].replace(/"/g, ''); 
             const obras = event.target.getAttribute('onclick').match(/"(.*?)"/g)[1].replace(/"/g, '');
 
-            getVideo(actorId, nombre, obras);
+            getActor(actorId, nombre, obras);
         });
     });
 
 });
+
+function buscar() {
+    const termino = document.getElementById('search').value.toLowerCase();
+    const resultados = document.getElementById('resultados');
+    
+    // Limpiar resultados previos
+    resultados.innerHTML = '';
+    
+    if (termino) {
+        // Filtrar el array por el término de búsqueda
+        const coincidencias = allVideos.filter(item => (item.titulo).toLowerCase().includes(termino));
+
+        // Mostrar los resultados
+        if (coincidencias.length > 0) {
+            coincidencias.forEach(item => {
+                const li = document.createElement('li');
+                const button = document.createElement("button");
+                button.innerHTML = item.titulo;
+                let obras = localStorage.getItem("obras");
+                obras += ","+item.id;
+                button.type = "button";
+                button.onclick = getActor(localStorage.getItem("idActor"),localStorage.getItem("nombre"),obras);
+                li.appendChild(button)
+                resultados.appendChild(li);
+            });
+        } else {
+            resultados.innerHTML = 'No se encontraron resultados.';
+        }
+    }
+}

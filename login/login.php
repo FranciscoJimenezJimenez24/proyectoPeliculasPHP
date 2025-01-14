@@ -3,7 +3,7 @@ session_start();
 $user = $_POST['user'];
 $pass = $_POST['password'];
 
-$conection = mysqli_connect("db", "root", "root", "dbname");
+$conection = mysqli_connect("localhost", "root", "root", "proyectoPeliculas");
 
 if (!$conection) {
     die("Connection failed: " . mysqli_connect_error());

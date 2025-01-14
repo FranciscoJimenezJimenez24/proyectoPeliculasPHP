@@ -1,27 +1,27 @@
 const videos = JSON.parse(localStorage.getItem("videos"));
-const tableActores = document.getElementById("tableVideos");
+const tableVideos = document.getElementById("tableVideos");
 
-tableActores.innerHTML = "";
+tableVideos.innerHTML = "";
 
 const tr = document.createElement("tr");
 
-const thNombre = document.createElement("th");
-const thObras = document.createElement("th");
+const thTitulo = document.createElement("th");
+const thDuration = document.createElement("th");
 const thFechaEstreno = document.createElement("th");
 const thCRUD = document.createElement("th");
 
-thNombre.textContent = "Titulo";
-thObras.textContent = "Duración";
+thTitulo.textContent = "Titulo";
+thDuration.textContent = "Duración";
 thFechaEstreno.textContent = "Fecha Estreno";
 thCRUD.textContent = "Acciones";
 
-tr.appendChild(thNombre);
-tr.appendChild(thObras);
+tr.appendChild(thTitulo);
+tr.appendChild(thDuration);
 tr.appendChild(thFechaEstreno);
 tr.appendChild(thCRUD);
 
-tableActores.appendChild(tr);
-actores.forEach(video => {
+tableVideos.appendChild(tr);
+videos.forEach(video => {
     const tr = document.createElement("tr");
 
     const tdTitle = document.createElement("td");
@@ -42,7 +42,7 @@ actores.forEach(video => {
     tr.appendChild(tdFechaEstreno);
     tr.appendChild(tdCRUD);
 
-    tableActores.appendChild(tr);
+    tableVideos.appendChild(tr);
 });
 function getVideo(id, titulo, duracion, fecha_estreno) {
     document.getElementById("idVideo").value = id;
