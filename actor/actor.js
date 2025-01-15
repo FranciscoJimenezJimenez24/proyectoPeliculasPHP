@@ -60,8 +60,34 @@ function getActor(id, nombre, obras) {
 
     for (let i = 0; i < obrasActor.length; i++) {
         const video = allVideos.find(video => video.id == obrasActor[i]);
-        div.innerHTML += video.titulo + " (" + (video.fecha_estreno).substring(0, 4) + ")" + "<br>";
+    
+        // Crear un contenedor para cada obra
+        const obraContainer = document.createElement("div");
+        obraContainer.style.marginBottom = "10px";  
+    
+        const obraText = document.createElement("span");
+        obraText.innerHTML = `${video.titulo} (${(video.fecha_estreno).substring(0, 4)})`;
+        obraContainer.appendChild(obraText);
+    
+        // Crear el botón
+        const button = document.createElement("button");
+        button.type = "button";
+        button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0 0 24 24"><path d="M 10.806641 2 C 10.289641 2 9.7956875 2.2043125 9.4296875 2.5703125 L 9 3 L 4 3 A 1.0001 1.0001 0 1 0 4 5 L 20 5 A 1.0001 1.0001 0 1 0 20 3 L 15 3 L 14.570312 2.5703125 C 14.205312 2.2043125 13.710359 2 13.193359 2 L 10.806641 2 z M 4.3652344 7 L 5.8925781 20.263672 C 6.0245781 21.253672 6.877 22 7.875 22 L 16.123047 22 C 17.121047 22 17.974422 21.254859 18.107422 20.255859 L 19.634766 7 L 4.3652344 7 z"></path></svg>';
+        button.style.width = "10%";
+        button.style.background = "none";
+        button.style.border = "none";
+    
+        // Acción del botón
+        button.onclick = () => {
+            obrasActor.splice(i, 1);
+            localStorage.setItem("obras",obrasActor.join(","));
+            getActor(document.getElementById("idActor").value, document.getElementById("nombre").value, obrasActor.join(","));
+        };
+    
+        obraContainer.appendChild(button);  
+        div.appendChild(obraContainer);  
     }
+    
 }
 
 
@@ -139,6 +165,7 @@ function buscar() {
                 let obras = localStorage.getItem("obras");
                 let obrasArray = new Set(obras.split(","));
                 obrasArray.add(item.id);
+                localStorage.setItem("obras", Array.from(obrasArray).join(","));
                 li.onclick = () => getActor(localStorage.getItem("idActor"), localStorage.getItem("nombre"), Array.from(obrasArray).join(","));
                 resultados.appendChild(li);
             });

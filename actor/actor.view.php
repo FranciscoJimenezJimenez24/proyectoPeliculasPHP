@@ -54,6 +54,7 @@ if (isset($_SESSION['alert'])) {
                     <div class="form-group">
                         <label for="obras">Obras</label>
                         <div class="obras"></div>
+                        <input type="hidden" name="obrasFinal" id="obrasFinal">
                     </div>
                     <div class="form-group">
                         <input type="text" id="search" onkeyup="buscar()">
@@ -62,7 +63,7 @@ if (isset($_SESSION['alert'])) {
 
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-success">Guardar</button>
+                    <button type="submit" class="btn btn-success" onclick="<script>document.getElementById('obrasFinal').value = localStorage.getItem('obras');</script>">Guardar</button>
                     <button type="button" class="btn btn-danger" id="cerrarInterfazBtnEdit">Cancelar</button>
                 </div>
             </form>
