@@ -80,7 +80,9 @@ function getActor(id, nombre, obras) {
         // Acción del botón
         button.onclick = () => {
             obrasActor.splice(i, 1);
-            localStorage.setItem("obras",obrasActor.join(","));
+            if (document.getElementById("obrasDelete").value == ""){
+                
+            }
             getActor(document.getElementById("idActor").value, document.getElementById("nombre").value, obrasActor.join(","));
         };
     
