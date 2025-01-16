@@ -60,15 +60,15 @@ function getActor(id, nombre, obras) {
 
     for (let i = 0; i < obrasActor.length; i++) {
         const video = allVideos.find(video => video.id == obrasActor[i]);
-    
+
         // Crear un contenedor para cada obra
         const obraContainer = document.createElement("div");
-        obraContainer.style.marginBottom = "10px";  
-    
+        obraContainer.style.marginBottom = "10px";
+
         const obraText = document.createElement("span");
         obraText.innerHTML = `${video.titulo} (${(video.fecha_estreno).substring(0, 4)})`;
         obraContainer.appendChild(obraText);
-    
+
         // Crear el botón
         const button = document.createElement("button");
         button.type = "button";
@@ -76,37 +76,41 @@ function getActor(id, nombre, obras) {
         button.style.width = "10%";
         button.style.background = "none";
         button.style.border = "none";
-    
+
         // Acción del botón
         button.onclick = () => {
             obrasActor.splice(i, 1);
-            if (document.getElementById("obrasDelete").value == ""){
-                
+            if (document.getElementById("obrasDelete").value == "") {
+                document.getElementById("obrasDelete").value = video.id;
+            } else {
+                document.getElementById("obrasDelete").value += "," + video.id;
             }
+            let videosAdd = (document.getElementById("obrasAdd").value).split(",");
+            document.getElementById("obrasAdd").value = videosAdd.filter(id => id!=video.id).join(",");
             getActor(document.getElementById("idActor").value, document.getElementById("nombre").value, obrasActor.join(","));
-        };
-    
-        obraContainer.appendChild(button);  
-        div.appendChild(obraContainer);  
-    }
-    
+        }
+        obraContainer.appendChild(button);
+        div.appendChild(obraContainer);
+    };
+
 }
 
+const add = document.getElementById("add");
+const interfazCreate = document.getElementById("interfazCreate");
+const overlayCreate = document.getElementById("overlayCreate");
+const cerrarInterfazBtnCreate = document.getElementById("cerrarInterfazBtnCreate");
 
-// const add = document.getElementById("add");
-// const interfazCreate = document.getElementById("interfazCreate");
-// const overlayCreate = document.getElementById("overlayCreate");
-// const cerrarInterfazBtnCreate = document.getElementById("cerrarInterfazBtnCreate");
+add.addEventListener("click", () => {
+    interfazCreate.classList.remove("ocultoCreate");
+    overlayCreate.classList.remove("ocultoCreate");
+});
 
-// add.addEventListener("click", () => {
-//     interfazCreate.classList.remove("ocultoCreate");
-//     overlayCreate.classList.remove("ocultoCreate");
-// });
-
-// cerrarInterfazBtnCreate.addEventListener("click", () => {
-//     interfazCreate.classList.add("ocultoCreate");
-//     overlayCreate.classList.add("ocultoCreate");
-// });
+cerrarInterfazBtnCreate.addEventListener("click", () => {
+    interfazCreate.classList.add("ocultoCreate");
+    overlayCreate.classList.add("ocultoCreate");
+    document.getElementById("obrasAdd").value = "";
+    document.getElementById("nombre").value = "";
+});
 
 const buttonsGreen = document.querySelectorAll(".buttonGreen");
 const interfazEdit = document.getElementById("interfazEdit");
@@ -123,6 +127,8 @@ buttonsGreen.forEach(button => {
 cerrarInterfazBtnEdit.addEventListener("click", () => {
     interfazEdit.classList.add("ocultoEdit");
     overlayEdit.classList.add("ocultoEdit");
+    document.getElementById("obrasAdd").value = "";
+    document.getElementById("obrasDelete").value = "";
 });
 
 const back = document.getElementById("back");
@@ -144,13 +150,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
 });
 
-function buscar() {
-    const termino = document.getElementById('search').value.toLowerCase();
+function buscar(input) {
+    const termino = input.value.toLowerCase();;
     const resultados = document.getElementById('resultados');
-
+    
     // Limpiar resultados previos
     resultados.innerHTML = '';
-
+    
     if (termino) {
         // Filtrar el array por el término de búsqueda
         const coincidencias = allVideos.filter(item => (item.titulo).toLowerCase().includes(termino));
@@ -166,9 +172,54 @@ function buscar() {
                 li.style.listStyleType = "none";
                 let obras = localStorage.getItem("obras");
                 let obrasArray = new Set(obras.split(","));
-                obrasArray.add(item.id);
                 localStorage.setItem("obras", Array.from(obrasArray).join(","));
-                li.onclick = () => getActor(localStorage.getItem("idActor"), localStorage.getItem("nombre"), Array.from(obrasArray).join(","));
+                li.onclick = () => {
+                    obrasArray.add(item.id);
+                    if (document.getElementById("obrasAdd").value == "") {
+                        document.getElementById("obrasAdd").value = item.id;
+                    } else {
+                        document.getElementById("obrasAdd").value += "," + item.id;
+                    }
+                    getActor(localStorage.getItem("idActor"), localStorage.getItem("nombre"), Array.from(obrasArray).join(","))
+                };
+                resultados.appendChild(li);
+            });
+        } else {
+            resultados.innerHTML = 'No se encontraron resultados.';
+        }
+    }
+}
+function buscarAdd(input) {
+    const termino = input.value.toLowerCase();
+    const resultados = document.getElementById('resultadosAdd');
+    
+    // Limpiar resultados previos
+    resultados.innerHTML = '';
+    
+    if (termino) {
+        // Filtrar el array por el término de búsqueda
+        const coincidencias = allVideos.filter(item => (item.titulo).toLowerCase().includes(termino));
+        // Mostrar los resultados
+        if (coincidencias.length > 0) {
+            coincidencias.forEach(item => {
+                const li = document.createElement('li');
+                li.innerHTML = item.titulo;
+                li.style.cursor = "pointer";
+                li.style.padding = "5px"
+                li.style.backgroundColor = "#f0f0f0";
+                li.style.listStyleType = "none";
+                let obras = localStorage.getItem("obras");
+                let obrasArray = new Set(obras.split(","));
+                localStorage.setItem("obras", Array.from(obrasArray).join(","));
+                li.onclick = () => {                    
+                    obrasArray.add(item.id);
+                    if (document.getElementById("obrasAdd").value == "") {
+                        document.getElementById("obrasAdd").value = item.id;
+                    } else {
+                        document.getElementById("obrasAdd").value += "," + item.id;
+                    }
+                    getActor(localStorage.getItem("idActor"), localStorage.getItem("nombre"), Array.from(obrasArray).join(","))
+                };
                 resultados.appendChild(li);
             });
         } else {

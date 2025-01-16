@@ -28,8 +28,11 @@ videos.forEach(video => {
     const tdDuration = document.createElement("td");
     const tdFechaEstreno = document.createElement("td");
     const tdCRUD = document.createElement("td");
-
-    tdTitle.textContent = video.titulo;
+    const a = document.createElement("a");
+    a.href = "detailVideo.html";
+    a.textContent = video.titulo;
+    a.onclick = () => localStorage.setItem("id",video.id);
+    tdTitle.appendChild(a);
     tdDuration.textContent = video.minuto_duracion;
     tdFechaEstreno.textContent = video.fecha_estreno;
     tdCRUD.innerHTML = `

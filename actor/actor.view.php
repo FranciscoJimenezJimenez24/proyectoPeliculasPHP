@@ -58,7 +58,7 @@ if (isset($_SESSION['alert'])) {
                         <input type="hidden" name="obrasDelete" id="obrasDelete">
                     </div>
                     <div class="form-group">
-                        <input type="text" id="search" onkeyup="buscar()">
+                        <input type="text" id="search" onkeyup="buscar(this)">
                         <ul id="resultados"></ul>
                     </div>
 
@@ -71,23 +71,24 @@ if (isset($_SESSION['alert'])) {
         </div>
     </div>
 
-    <!-- <div id="overlayCreate" class="ocultoCreate"></div>
+    <div id="overlayCreate" class="ocultoCreate"></div>
     <div id="interfazCreate" class="ocultoCreate">
         <div class="modal-content">
-            <form action="createVideo.php" method="post">
+            <form action="addVideo.php" method="post">
                 <div class="modal-body">
-                    <input type="hidden" id="tipo_video" name="tipo_video">
+                    <input type="hidden" id="idActor" name="idActor">
                     <div class="form-group">
-                        <label for="titulo">Título</label>
-                        <input type="text" class="form-control" name="titulo" id="titulo" required>
+                        <label for="nombre">Nombre</label>
+                        <input type="text" class="form-control" name="nombre" id="nombre" required>
                     </div>
                     <div class="form-group">
-                        <label for="minuto_duracion">Duración (minutos)</label>
-                        <input type="number" class="form-control" name="minuto_duracion" id="minuto_duracion" required>
+                        <label for="obras">Obras</label>
+                        <div class="obras"></div>
+                        <input type="hidden" name="obras" id="obras">
                     </div>
                     <div class="form-group">
-                        <label for="fecha_estreno">Fecha Estreno</label>
-                        <input type="date" class="form-control" name="fecha_estreno" id="fecha_estreno" required>
+                        <input type="text" id="search" onkeyup="buscarAdd(this)">
+                        <ul id="resultadosAdd"></ul>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -96,7 +97,7 @@ if (isset($_SESSION['alert'])) {
                 </div>
             </form>
         </div>
-    </div> -->
+    </div>
 
     <script src="actor.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
