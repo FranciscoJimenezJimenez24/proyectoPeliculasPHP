@@ -1,5 +1,10 @@
 <?php
 session_start();
+if (!isset($_SESSION['user'])) {
+    $_SESSION['alert'] = 'Tiene que iniciar sesión';
+    header('Location: ../login/login.view.php');
+    exit();
+}
 if (isset($_SESSION['alert'])) {
     echo "<script>alert('" . $_SESSION['alert'] . "');</script>";
     unset($_SESSION['alert']);
@@ -11,7 +16,8 @@ if (isset($_SESSION['alert'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Actor</title>
+    <link rel="stylesheet" href="../assets/icoFilm.svg">
     <link rel="stylesheet" href="actor.css">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"
         crossorigin="anonymous">
@@ -19,6 +25,26 @@ if (isset($_SESSION['alert'])) {
 </head>
 
 <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">Entretenimiento</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../home/home.view.php">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../home/logout.php">Cerrar Sesión</a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
     <div class="table-container">
         <div id="buttons">
             <a id="back" href="../home/home.view.php">
@@ -44,7 +70,7 @@ if (isset($_SESSION['alert'])) {
     <div id="overlayEdit" class="ocultoEdit"></div>
     <div id="interfazEdit" class="ocultoEdit">
         <div class="modal-content">
-            <form action="editActor.php" method="post">
+            <form action="crudActor/editActor.php" method="post">
                 <div class="modal-body">
                     <input type="hidden" id="idActor" name="idActor">
                     <div class="form-group">
@@ -74,7 +100,7 @@ if (isset($_SESSION['alert'])) {
     <div id="overlayCreate" class="ocultoCreate"></div>
     <div id="interfazCreate" class="ocultoCreate">
         <div class="modal-content">
-            <form action="addActor.php" method="post">
+            <form action="crudActor/addActor.php" method="post">
                 <div class="modal-body">
                     <input type="hidden" id="idActor" name="idActor">
                     <div class="form-group">
@@ -98,6 +124,9 @@ if (isset($_SESSION['alert'])) {
             </form>
         </div>
     </div>
+    <footer class="bg-dark text-white text-center py-3">
+        <p>&copy; 2025 Entretenimiento. Todos los derechos reservados.</p>
+    </footer>
 
     <script src="actor.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>

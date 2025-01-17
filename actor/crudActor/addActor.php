@@ -2,7 +2,7 @@
 session_start();
 header('Content-Type: application/json');
 
-$conection = mysqli_connect("localhost", "root", "root", "proyectoPeliculas");
+$conection = mysqli_connect("db", "root", "root", "dbname");
 
 if (!$conection) {
     die("Connection failed: " . mysqli_connect_error());
@@ -31,21 +31,21 @@ if ($conection->query($sqlInsertActor)) {
         // Ejecuta la consulta para insertar las relaciones en video_actor
         if ($conection->query($sqlInsertVideoActor)) {
             $_SESSION['alert'] = 'Se añadió correctamente el actor y sus obras';
-            header('Location: ../home/home.view.php');
+            header('Location: ../../home/home.view.php');
             exit();
         } else {
             $_SESSION['alert'] = 'Hubo un error al añadir las obras: ' . addslashes($conection->error);
-            header('Location: video.view.php');
+            header('Location: ../actor.view.php');
             exit();
         }
     } else {
-        $_SESSION['alert'] = 'Se añadió correctamente el actor, pero no se añadieron obras. El array: '. $obrasAdd. " el post: ".$_POST['obrasAnadir'];
-        header('Location: ../home/home.view.php');
+        $_SESSION['alert'] = 'Se añadió correctamente el actor, pero no se añadieron obras.';
+        header('Location: ../../home/home.view.php');
         exit();
     }
 } else {
     $_SESSION['alert'] = 'Hubo un error al añadir el actor: ' . addslashes($conection->error);
-    header('Location: video.view.php');
+    header('Location: ../actor.view.php');
     exit();
 }
 ?>

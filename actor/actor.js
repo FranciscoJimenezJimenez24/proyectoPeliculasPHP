@@ -102,6 +102,7 @@ function getActorAdd(nombre, obras) {
     let obrasActor = obras.split(",");
 
     const div = document.getElementsByClassName("obrasAnadir")[0];
+    document.getElementById("obrasAnadir").value = obras;
     div.innerHTML = "";  // Limpiar contenido previo
 
     localStorage.setItem("nombre", nombre);
@@ -129,11 +130,6 @@ function getActorAdd(nombre, obras) {
         // Acción del botón
         button.onclick = () => {
             obrasActor.splice(i, 1);
-            if (document.getElementById("obrasDelete").value == "") {
-                document.getElementById("obrasDelete").value = video.id;
-            } else {
-                document.getElementById("obrasDelete").value += "," + video.id;
-            }
             let videosAdd = (document.getElementById("obrasAnadir").value).split(",");
             document.getElementById("obrasAnadir").value = videosAdd.filter(id => id != video.id).join(",");
             getActorAdd(document.getElementById("nombre").value, obrasActor.join(","));
@@ -268,7 +264,7 @@ function buscarAdd(input) {
                     let obrasArray = new Set(obras.split(","));
                     localStorage.setItem("obrasAnadir", Array.from(obrasArray).join(","));
                     li.onclick = () => {
-                        obrasArray.add(item.id);
+                        obrasArray.add(item.id);                        
                         if (document.getElementById("obrasAnadir").value == "") {
                             document.getElementById("obrasAnadir").value = item.id;
                         } else {
@@ -290,5 +286,4 @@ function buscarAdd(input) {
             resultados.innerHTML = 'No se encontraron resultados.';
         }
     }
-    console.log(document.getElementById("obrasAnadir").value);
 }

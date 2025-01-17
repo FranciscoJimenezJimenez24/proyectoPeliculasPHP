@@ -55,7 +55,7 @@ function sendActors(){
     .catch(error => console.error('Error:', error));
 }
 function sendAllVideos(){
-    fetch("../video/allvideos.php", {
+    fetch("../video/crudVideo/allvideos.php", {
         method: "POST",
         headers: {
             "Content-Type": "application/x-www-form-urlencoded"

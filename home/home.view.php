@@ -1,9 +1,15 @@
 <?php
 session_start();
+if (!isset($_SESSION['user'])) {
+    $_SESSION['alert'] = 'Tiene que iniciar sesión';
+    header('Location: ../login/login.view.php');
+    exit();
+}
 if (isset($_SESSION['alert'])) {
     echo "<script>alert('" . $_SESSION['alert'] . "');</script>";
     unset($_SESSION['alert']);
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -11,7 +17,7 @@ if (isset($_SESSION['alert'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio - Opciones de Entretenimiento</title>
+    <title>Inicio</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="home.css">
 </head>
@@ -28,11 +34,12 @@ if (isset($_SESSION['alert'])) {
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Inicio</a>
+                        <a class="nav-link" href="home.view.php">Inicio</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Contacto</a>
+                        <a class="nav-link" href="logout.php">Cerrar Sesión</a>
                     </li>
+
                 </ul>
             </div>
         </div>
@@ -65,7 +72,7 @@ if (isset($_SESSION['alert'])) {
                     <div class="card-body">
                         <h5 class="card-title">Series</h5>
                         <p class="card-text">Sumérgete en las mejores series de todos los géneros.</p>
-                        <a href="#" id="series" class="btn btn-primary" >Ver Series</a>
+                        <a href="#" id="series" class="btn btn-primary">Ver Series</a>
                     </div>
                 </div>
             </div>

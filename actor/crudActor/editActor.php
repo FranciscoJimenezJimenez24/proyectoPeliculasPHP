@@ -2,7 +2,7 @@
 session_start();
 header('Content-Type: application/json');
 
-$conection = mysqli_connect("localhost", "root", "root", "proyectoPeliculas");
+$conection = mysqli_connect("db", "root", "root", "dbname");
 
 if (!$conection) {
     die("Connection failed: " . mysqli_connect_error());
@@ -44,11 +44,11 @@ if ($conection->query($sqlUpdate)) {
     }
 
     $_SESSION['alert'] = 'Se editó correctamente el actor';
-    header('Location: ../home/home.view.php');
+    header('Location: ../../home/home.view.php');
     exit();
 } else {
     $_SESSION['alert'] = 'Hubo un error al editar el actor: ' . addslashes($conection->error);
-    header('Location: video.view.php');
+    header('Location: ../actor.view.php');
     exit();
 }
 
