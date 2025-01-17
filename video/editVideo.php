@@ -2,7 +2,7 @@
 session_start();
 header('Content-Type: application/json');
 
-$conection = mysqli_connect("db", "root", "root", "dbname");
+$conection = mysqli_connect("localhost", "root", "root", "proyectoPeliculas");
 
 if (!$conection) {
     die("Connection failed: " . mysqli_connect_error());

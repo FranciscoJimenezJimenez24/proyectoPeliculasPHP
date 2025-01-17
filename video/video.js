@@ -29,9 +29,29 @@ videos.forEach(video => {
     const tdFechaEstreno = document.createElement("td");
     const tdCRUD = document.createElement("td");
     const a = document.createElement("a");
-    a.href = "detailVideo.html";
+    a.href = "#"
     a.textContent = video.titulo;
-    a.onclick = () => localStorage.setItem("id",video.id);
+    a.addEventListener("click", (event) => {
+        event.preventDefault();
+        localStorage.setItem("titulo",video.titulo);
+        fetch("../video/detailVideo.php", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: new URLSearchParams({ id: video.id })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                alert(data.error);
+            } else {
+                localStorage.setItem("actoresVideo", JSON.stringify(data));
+                window.location.href = "detailVideo.view.php";
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    });
     tdTitle.appendChild(a);
     tdDuration.textContent = video.minuto_duracion;
     tdFechaEstreno.textContent = video.fecha_estreno;

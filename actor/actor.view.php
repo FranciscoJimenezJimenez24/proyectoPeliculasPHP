@@ -74,7 +74,7 @@ if (isset($_SESSION['alert'])) {
     <div id="overlayCreate" class="ocultoCreate"></div>
     <div id="interfazCreate" class="ocultoCreate">
         <div class="modal-content">
-            <form action="addVideo.php" method="post">
+            <form action="addActor.php" method="post">
                 <div class="modal-body">
                     <input type="hidden" id="idActor" name="idActor">
                     <div class="form-group">
@@ -82,9 +82,9 @@ if (isset($_SESSION['alert'])) {
                         <input type="text" class="form-control" name="nombre" id="nombre" required>
                     </div>
                     <div class="form-group">
-                        <label for="obras">Obras</label>
-                        <div class="obras"></div>
-                        <input type="hidden" name="obras" id="obras">
+                        <label for="obrasAnadir">Obras</label>
+                        <div class="obrasAnadir"></div>
+                        <input type="hidden" name="obrasAnadir" id="obrasAnadir">
                     </div>
                     <div class="form-group">
                         <input type="text" id="search" onkeyup="buscarAdd(this)">

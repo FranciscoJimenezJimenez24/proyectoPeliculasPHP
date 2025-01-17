@@ -2,12 +2,12 @@
 session_start();
 header('Content-Type: application/json');
 
-$conection = mysqli_connect("db", "root", "root", "dbname");
+$conection = mysqli_connect("localhost", "root", "root", "proyectoPeliculas");
 
 if (!$conection) {
     die("Connection failed: " . mysqli_connect_error());
 }
-$id = intval($_POST['idVideo']);
+$id = intval($_POST['idVideoDelete']);
 $sqlDelete = "DELETE FROM video WHERE id = $id";
 if ($conection->query($sqlDelete)) {
     $_SESSION['alert'] = "El valor del id: $id Se eliminó correctamente el video";

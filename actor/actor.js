@@ -47,6 +47,7 @@ actores.forEach(actor => {
 });
 
 function getActor(id, nombre, obras) {
+
     document.getElementById("idActor").value = id;
     document.getElementById("nombre").value = nombre;
     let obrasActor = obras.split(",");
@@ -57,10 +58,11 @@ function getActor(id, nombre, obras) {
     localStorage.setItem("idActor", id);
     localStorage.setItem("nombre", nombre);
     localStorage.setItem("obras", obrasActor)
-
+    
     for (let i = 0; i < obrasActor.length; i++) {
         const video = allVideos.find(video => video.id == obrasActor[i]);
-
+        console.log(video);
+        
         // Crear un contenedor para cada obra
         const obraContainer = document.createElement("div");
         obraContainer.style.marginBottom = "10px";
@@ -86,13 +88,60 @@ function getActor(id, nombre, obras) {
                 document.getElementById("obrasDelete").value += "," + video.id;
             }
             let videosAdd = (document.getElementById("obrasAdd").value).split(",");
-            document.getElementById("obrasAdd").value = videosAdd.filter(id => id!=video.id).join(",");
+            document.getElementById("obrasAdd").value = videosAdd.filter(id => id != video.id).join(",");
             getActor(document.getElementById("idActor").value, document.getElementById("nombre").value, obrasActor.join(","));
         }
         obraContainer.appendChild(button);
         div.appendChild(obraContainer);
     };
 
+}
+function getActorAdd(nombre, obras) {
+
+    document.getElementById("nombre").value = nombre;
+    let obrasActor = obras.split(",");
+
+    const div = document.getElementsByClassName("obrasAnadir")[0];
+    div.innerHTML = "";  // Limpiar contenido previo
+
+    localStorage.setItem("nombre", nombre);
+    localStorage.setItem("obrasAnadir", obrasActor)
+    
+    for (let i = 0; i < obrasActor.length; i++) {
+        const video = allVideos.find(video => video.id == obrasActor[i]);
+        
+        // Crear un contenedor para cada obra
+        const obraContainer = document.createElement("div");
+        obraContainer.style.marginBottom = "10px";
+
+        const obraText = document.createElement("span");
+        obraText.innerHTML = `${video.titulo} (${(video.fecha_estreno).substring(0, 4)})`;
+        obraContainer.appendChild(obraText);
+
+        // Crear el botón
+        const button = document.createElement("button");
+        button.type = "button";
+        button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0 0 24 24"><path d="M 10.806641 2 C 10.289641 2 9.7956875 2.2043125 9.4296875 2.5703125 L 9 3 L 4 3 A 1.0001 1.0001 0 1 0 4 5 L 20 5 A 1.0001 1.0001 0 1 0 20 3 L 15 3 L 14.570312 2.5703125 C 14.205312 2.2043125 13.710359 2 13.193359 2 L 10.806641 2 z M 4.3652344 7 L 5.8925781 20.263672 C 6.0245781 21.253672 6.877 22 7.875 22 L 16.123047 22 C 17.121047 22 17.974422 21.254859 18.107422 20.255859 L 19.634766 7 L 4.3652344 7 z"></path></svg>';
+        button.style.width = "10%";
+        button.style.background = "none";
+        button.style.border = "none";
+
+        // Acción del botón
+        button.onclick = () => {
+            obrasActor.splice(i, 1);
+            if (document.getElementById("obrasDelete").value == "") {
+                document.getElementById("obrasDelete").value = video.id;
+            } else {
+                document.getElementById("obrasDelete").value += "," + video.id;
+            }
+            let videosAdd = (document.getElementById("obrasAnadir").value).split(",");
+            document.getElementById("obrasAnadir").value = videosAdd.filter(id => id != video.id).join(",");
+            getActorAdd(document.getElementById("nombre").value, obrasActor.join(","));
+        }
+        obraContainer.appendChild(button);
+        div.appendChild(obraContainer);
+    };
+    console.log(document.getElementById("obrasAnadir").value);
 }
 
 const add = document.getElementById("add");
@@ -108,7 +157,7 @@ add.addEventListener("click", () => {
 cerrarInterfazBtnCreate.addEventListener("click", () => {
     interfazCreate.classList.add("ocultoCreate");
     overlayCreate.classList.add("ocultoCreate");
-    document.getElementById("obrasAdd").value = "";
+    document.getElementById("obrasAnadir").value = "";
     document.getElementById("nombre").value = "";
 });
 
@@ -134,6 +183,12 @@ cerrarInterfazBtnEdit.addEventListener("click", () => {
 const back = document.getElementById("back");
 back.addEventListener("click", () => {
     localStorage.removeItem("actores");
+    localStorage.removeItem("obras");
+    localStorage.removeItem("obrasFinal");
+    localStorage.removeItem("idActor");
+    localStorage.removeItem("nombre");
+    localStorage.removeItem("allVideos");
+    localStorage.removeItem("obrasAnadir")
 });
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -153,10 +208,10 @@ document.addEventListener('DOMContentLoaded', () => {
 function buscar(input) {
     const termino = input.value.toLowerCase();;
     const resultados = document.getElementById('resultados');
-    
+
     // Limpiar resultados previos
     resultados.innerHTML = '';
-    
+
     if (termino) {
         // Filtrar el array por el término de búsqueda
         const coincidencias = allVideos.filter(item => (item.titulo).toLowerCase().includes(termino));
@@ -192,10 +247,10 @@ function buscar(input) {
 function buscarAdd(input) {
     const termino = input.value.toLowerCase();
     const resultados = document.getElementById('resultadosAdd');
-    
+
     // Limpiar resultados previos
     resultados.innerHTML = '';
-    
+
     if (termino) {
         // Filtrar el array por el término de búsqueda
         const coincidencias = allVideos.filter(item => (item.titulo).toLowerCase().includes(termino));
@@ -208,22 +263,32 @@ function buscarAdd(input) {
                 li.style.padding = "5px"
                 li.style.backgroundColor = "#f0f0f0";
                 li.style.listStyleType = "none";
-                let obras = localStorage.getItem("obras");
-                let obrasArray = new Set(obras.split(","));
-                localStorage.setItem("obras", Array.from(obrasArray).join(","));
-                li.onclick = () => {                    
-                    obrasArray.add(item.id);
-                    if (document.getElementById("obrasAdd").value == "") {
-                        document.getElementById("obrasAdd").value = item.id;
-                    } else {
-                        document.getElementById("obrasAdd").value += "," + item.id;
-                    }
-                    getActor(localStorage.getItem("idActor"), localStorage.getItem("nombre"), Array.from(obrasArray).join(","))
-                };
+                if (localStorage.getItem("obrasAnadir") != null) {
+                    let obras = localStorage.getItem("obrasAnadir");
+                    let obrasArray = new Set(obras.split(","));
+                    localStorage.setItem("obrasAnadir", Array.from(obrasArray).join(","));
+                    li.onclick = () => {
+                        obrasArray.add(item.id);
+                        if (document.getElementById("obrasAnadir").value == "") {
+                            document.getElementById("obrasAnadir").value = item.id;
+                        } else {
+                            document.getElementById("obrasAnadir").value += "," + item.id;
+                        }
+                        getActorAdd(localStorage.getItem("nombre"), Array.from(obrasArray).
+                            join(","))
+                    };
+
+                } else {
+                    li.onclick = () => {
+                        localStorage.setItem("obrasAnadir", item.id);
+                        getActorAdd(localStorage.getItem("nombre"), item.id)
+                    };
+                }
                 resultados.appendChild(li);
             });
         } else {
             resultados.innerHTML = 'No se encontraron resultados.';
         }
     }
+    console.log(document.getElementById("obrasAnadir").value);
 }
