@@ -15,5 +15,5 @@ const button = document.getElementById("button");
 button.addEventListener("click", () => {
     localStorage.removeItem("titulo");
     localStorage.removeItem("actoresVideo");
-    window.location.href = "video.view.php";
+    window.location.href = "../video.view.php";
 });

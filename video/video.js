@@ -34,7 +34,7 @@ videos.forEach(video => {
     a.addEventListener("click", (event) => {
         event.preventDefault();
         localStorage.setItem("titulo",video.titulo);
-        fetch("../video/detailVideo.php", {
+        fetch("../video/detailVideo/detailVideo.php", {
             method: "POST",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded"
@@ -47,7 +47,7 @@ videos.forEach(video => {
                 alert(data.error);
             } else {
                 localStorage.setItem("actoresVideo", JSON.stringify(data));
-                window.location.href = "detailVideo.view.php";
+                window.location.href = "detailVideo/detailVideo.view.php";
             }
         })
         .catch(error => console.error('Error:', error));

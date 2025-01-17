@@ -17,7 +17,7 @@ if (isset($_SESSION['alert'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Actor</title>
-    <link rel="stylesheet" href="../assets/icoFilm.svg">
+    <link rel="icon" href="../assets/icoFilm.svg" type="image/x-icon">
     <link rel="stylesheet" href="actor.css">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"
         crossorigin="anonymous">

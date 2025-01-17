@@ -22,7 +22,7 @@ if ($result && mysqli_num_rows($result) > 0) {
     echo json_encode($actores); 
 } else {
     $_SESSION['alert'] = 'Hubo un error' . addslashes($conection->error);
-    header('Location: video.view.php');
+    header('Location: ../video.view.php');
     exit();
 }
 
